@@ -1,46 +1,17 @@
 import React, { Component } from "react";
 
 /**
- * EXPLICACION 1
+ * EXPLICACION 2:
  *
- * Los componentes reciben información desde sus props. Sin emabrgo, en la mayoria de las ocasiones
- * es necesario que los propios componentes generen su propia información (estado) y decidan compartirlo con otros componentes.
- * Por tanto la tienen que guardar para proceder a gestionarla (a través de sus métodos controladores de eventos)
+ * El estado de este componente lo desamos compartir con otros componentes
+ * que se encuentran en la misma página donde este es tambien solicitado
+ * (compartir estado entre hermanos)
  *
- * La clave está en que la información del state de los componentes, pasará en una sola dirección hacia otros componentes y podrá ser consumid
- * a pero no modificada.
+ * Para ello se declara el estado en la parte más superior que tenga acceso a los
+ * componentes que desean compartir. En este caso en BadgeForm
  *
- * Para guardar la información en el estado se usa una función de la clase Component llamada setState
- * a la cual se le debe pasar un objeto con la información que se quiere guardar.
- *
- * Aunque no se ve, la información está siendo guardada en dos sitios.
- * Cada input guarda su propio valor y al tiempo la está guardando en setState,
- * lo cual no es ideal.
- * Para solucionarlo hay que modificar los inputs de un estado de no controlados a controlados.
  */
 class BadgeForm extends Component {
-  // Es importante inicializar el estado para este componente,
-  // El nombre de sus claves es el name de los controles de formulario (son como los v-model de VueJS)
-  state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    jobTitle: "",
-    twitter: ""
-  };
-  // Esta es una función que permite controlar el evento para nuestra caja de texto
-  // Cada vez que cambia la info, se emite un evento de tipo change
-  handleChange = e => {
-    /**
-     * Todos los input invocan a esta función cuando sus valores cambian. Por tanto, se establece su estado
-     * en el state del componente, colocando como clave el nombre del control y como valor su correspondiente valor del propio elemento
-     * esta entre corchetes para que la asignación del nombre y su valor sea dinámica
-     * y no tener que crear un método controlador de evento para cada input
-     */
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
   // Función controladora de evento de tipo click para el boton de formulario
   handleClick = e => {
     // Forma para prevenir el comportamiento por defecto del boton dentro del formulario
@@ -54,61 +25,63 @@ class BadgeForm extends Component {
     return (
       <div>
         <h1>New Attendant</h1>
-        {/** Los eventos en lugar de pasarle una función con parentesis como valor, solo se hace mencion del método controlador del evento */}
         <form>
           <div className="form-group">
             <label>First Name</label>
-            {/** Por defecto la información que esta en el control se guarda en el state del componente
-            Pero, hacer esto genera que se guarde la informacion en dos lugares distintos - el state y el elemento del formulario
-            Por tanto, es necesario indicar en el elemento de formulario que su estado debe ser controlado
-            Para ello se establece en el atributo value, el valor que se tiene almacenado en el state para dicho elemento
-            DIGAMOS QUE ESTO ES COMO EL DATA-BINDING -- v-model de VueJS */}
+            {/** Como el state se encuentra en un nivel superior, ahora este componente la
+            recibe a través de sus props.
+            Por tanto, para controlar el estado de los elementos input. Hago referencia la data compartida mediante el prop formValues*/}
             <input
-              onChange={this.handleChange}
+              onChange={this.props.onChange}
               type="text"
               name="firstName"
               className="form-control"
-              value={this.state.firstName}
+              value={this.props.formValues.firstName}
             />
           </div>
+          {/** Los componentes hijos no deben mutar el estado de los padres.
+        Por tanto, cuando se activa el evento change del control input, invocamos al valor compartido a traves del prop onChange 
+        Que es una funcion que se encarga de controlar el evento, la cual se encuentra
+        definida en la página padre.
+        De esta forma el control input le da a conocer el padre su nuevo estado*/}
           <div className="form-group">
             <label>Last Name</label>
             <input
-              onChange={this.handleChange}
+              onChange={this.props.onChange}
               type="text"
               name="lastName"
               className="form-control"
-              value={this.state.lastName}
+              value={this.props.formValues.astName}
             />
           </div>
           <div className="form-group">
             <label>Email</label>
             <input
-              onChange={this.handleChange}
+              onChange={this.props.onChange}
               type="email"
               name="email"
               className="form-control"
-              value={this.state.email}
+              value={this.props.formValues.email}
             />
           </div>
           <div className="form-group">
             <label>Job Title</label>
             <input
-              onChange={this.handleChange}
+              onChange={this.props.onChange}
               type="text"
               name="jobTitle"
               className="form-control"
-              value={this.state.jobTitle}
+              value={this.props.formValues.jobTitle}
             />
           </div>
           <div className="form-group">
             <label>Twitter</label>
             <input
-              onChange={this.handleChange}
+              onChange={this.props.onChange}
               type="text"
               name="twitter"
               className="form-control"
-              value={this.state.twitter}
+              value={this.props.formValues.twitter}
             />
           </div>
           <button onClick={this.handleClick} className="btn btn-primary">

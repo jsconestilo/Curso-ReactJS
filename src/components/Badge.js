@@ -4,20 +4,6 @@ import "./styles/Badge.css";
 
 import confLogo from "../images/badge-header.svg";
 
-/**
- * EXPLICACION 2:
- *
- * Para no tener que estar escribiendo this.props en todos los lugares donde queremos mostrarlos en el componente, se recomienda hacer uso de destructuring
- * 
- * const {
-	firstName,
-	lastName,
-	avatarUrl,
-	jobTitle,
-	twitter
-    } = this.props;
- * y ahora solo {firstName} o {twitter}  
- */
 class Badge extends React.Component {
   /**
    * Los props salen de una variable de la clase que se llama this.props y los valores son asignados directamente en el ReactDOM.render().

@@ -18,13 +18,15 @@ import ReactDom from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./global.css";
 
+// En este caso, la app mostrará como componente de página principal a ...
 import BadgeNew from "./pages/BadgeNew";
 
 const container = document.getElementById("root");
 
 /**
- * EXPLICACIÓN 1:
- *
+ * EXPLICACIÓN 3:
+ * En las SPA solo renderizamos el componente principal. y sobre el se colocaran los componentes secundarios
+ * u otras páginas de componentes mediante el sistema de ruteo
  *
  */
 ReactDom.render(<BadgeNew />, container);

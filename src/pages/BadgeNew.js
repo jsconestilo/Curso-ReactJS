@@ -7,12 +7,16 @@ import logo from "../images/badge-header.svg";
 // Este componente de página requiere mostrar otros componentes como parte de su contenido interno. POr tanto los importamos
 import Navbar from "../components/Navbar";
 import Badge from "../components/Badge";
+import BadgeForm from "../components/BadgeForm";
 
 /**
- * EXPLICACION 1:
+ * EXPLICACION 2:
  *
  * Las páginas en React son componentes.
- * Conseguir distinguirlas nos servirá para saber que es un componente y que adentro lleva otros componentes.
+ * Una página puede hacer uso de muchos componentes.
+ *
+ * Por buenas prácticas se recomienda separar los componentes reutilizables en una carpeta components
+ * y los componentes de página en una carpeta pages..
  */
 class BadgeNew extends Component {
   render() {
@@ -24,7 +28,7 @@ class BadgeNew extends Component {
         </div>
         <div className="container">
           <div className="row">
-            <div className="col">
+            <div className="col-6">
               {/** Al escribir los props no importa el orden en el que lo hagas, únicamente importa el nombre. */}
               <Badge
                 firstName="Alejandro"
@@ -33,6 +37,9 @@ class BadgeNew extends Component {
                 jobTitle="FrontEnd Web Developer"
                 avatarUrl="https://www.gravatar.com/avatar/0fcf77b7bc594393ac42cebfe45e7179"
               />
+            </div>
+            <div className="col-6">
+              <BadgeForm />
             </div>
           </div>
         </div>

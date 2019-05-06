@@ -18,24 +18,13 @@ import ReactDom from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./global.css";
 
-import Badge from "./components/Badge";
+import BadgeNew from "./pages/BadgeNew";
 
 const container = document.getElementById("root");
 
 /**
  * EXPLICACIÓN 1:
  *
- * Los props que es la forma corta de properties,
- * son argumentos de una función y en este caso serán los atributos de nuestro componente como class, src, etc.
- * Permiten enviar información a nuestros componentes para que se comporten de manera diferente (muestren info diferente)
+ *
  */
-ReactDom.render(
-  <Badge
-    firstName="Alexito"
-    lastName="González"
-    jobTitle="Front End Web Engineer"
-    twitter="jsconestilo"
-    avatarUrl="https://www.gravatar.com/avatar/0fcf77b7bc594393ac42cebfe45e7179"
-  />,
-  container
-);
+ReactDom.render(<BadgeNew />, container);

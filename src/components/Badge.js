@@ -1,39 +1,30 @@
 import React from "react";
+// Importar estilos CSS propios para este componente. Webpack sabe como insertar todo este CSS en el componente
+import "./styles/Badge.css";
 // Importar una imagen para utilizarla dentro de mi componente.
-// Esto es parte del trabajo de Webpack. que se configura automáticamente mediante el comando create-react-app
-// El cual permite inicializar aplicaciones React
 import confLogo from "../images/badge-header.svg";
 
 /**
  * EXPLICACION 1:
  *
- * Los componentes en React son bloques de construcción.
- * Las aplicaciones hechas con React son como figuras de Lego. Junta varias piezas (componentes) y puedes construir un website tan pequeño o tan grande como quieras.
- * Los componentes serán barras de búsquedas, enlaces, encabezados, el header, etc.
- *
- * Identificación de componentes: Para identificarlos debes hacerte las siguientes preguntas:
- *
- * ¿Qué elementos se repiten? Estos son los elementos en una lista o los que comparten aspecto visual y su funcionalidad
- * ¿Qué elementos cumplen una función muy específica? Estos sirven para encapsular la lógica y permiten juntar muchos comportamientos y aspectos visuales en un solo lugar.
- *
- *  Identificar componentes es una habilidad esencial para poder desarrollar aplicaciones de React
- *
- * Los componentes de React son clases
+ * Para los estilos de nuestros componentes, crearemos una carpeta llamada Styles y allí vivirán todos los archivos de estilos que tienen que ver con los componentes.
+ * Para usar los estilos es necesario importarlos con import
+ * React funciona ligeramente diferente y para los atributos de clases no se utiliza class sino className
+ * Es posible utilizar Bootstrap con React, sólo debe ser instalado con npm install bootstrap y debe ser importado en el index.js
+ * Existen estilos que son usados de manera global o en varios componentes, así que deben ser importados en el index.js
  */
 class Badge extends React.Component {
-  // Todos los componentes requieren obligatoriamente el método render( )
+  // Los nombres de atributos HTML que entren en conficto con palabras resercadas de JS, deben nombrarse según la documentacion de React
+  // class -----  className
   render() {
-    // Este debe retornar la información que se va a rendeerizar dentro del componente
     return (
-      <div>
-        <div>
-          {/** Los atributos con asignación de llaves { } y un valor. En JSX se le conocen como PROPS  */}
+      <div className="Badge">
+        <div className="Badge__header">
           <img src={confLogo} alt="Logo de la conferencia" />
         </div>
-        <div>
-          {/** Para obtener el avatar de una cuenta, es necesario pasar el email
-          en md5 a la siguiente URL: https://www.gravatar.com/avatar/ */}
+        <div className="Badge__section-name">
           <img
+            className="Badge__avatar"
             src="https://www.gravatar.com/avatar/0fcf77b7bc594393ac42cebfe45e7179"
             alt="Avatar"
           />
@@ -41,11 +32,11 @@ class Badge extends React.Component {
             Alejandro <br /> González
           </h1>
         </div>
-        <div>
-          <p>Frontend Engineer</p>
-          <p />
+        <div className="Badge__section-info">
+          <h3>Frontend Engineer</h3>
+          <div>@jsconestilo</div>
         </div>
-        <div>#platziconf</div>
+        <div className="Badge__footer">#platziconf</div>
       </div>
     );
   }

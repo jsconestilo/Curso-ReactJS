@@ -14,16 +14,14 @@ serviceWorker.unregister();*/
 // Librerías necesarias para aplicaciones React
 import React from "react";
 import ReactDom from "react-dom";
+// Importar librería de Bootstrap para aplicar estilos globales en nuestra app. Para ello es necesario instalarla mediante npm
+// Los módulos de npm se acceden solo mencionando el nombre del mismo, sin /, ./ etc
+import "bootstrap/dist/css/bootstrap.css";
+// Si tenemos estilos CSS globales. Es necesario importarlos desde el index de la App
+import "./global.css";
 // Requerir el componente
 import Badge from "./components/Badge";
 
 const container = document.getElementById("root");
 
-/**
- * EXPLICACIÓN 2:
- *
- * Componetes VS elementos
- *
- * El primer parametro a pasar a ReactDOM.render( ) es el elemento a rederizar, Sin embargo yo quiero un componente, para ello, debemos crear una instancia de ese componente que daría como resultado el elemento.
- * Por ello empleo las llaves angulares < > con el nombre del componente importado */
 ReactDom.render(<Badge />, container);

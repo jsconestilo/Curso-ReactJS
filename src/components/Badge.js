@@ -1,21 +1,27 @@
 import React from "react";
-// Importar estilos CSS propios para este componente. Webpack sabe como insertar todo este CSS en el componente
+
 import "./styles/Badge.css";
-// Importar una imagen para utilizarla dentro de mi componente.
+
 import confLogo from "../images/badge-header.svg";
 
 /**
- * EXPLICACION 1:
+ * EXPLICACION 2:
  *
- * Para los estilos de nuestros componentes, crearemos una carpeta llamada Styles y allí vivirán todos los archivos de estilos que tienen que ver con los componentes.
- * Para usar los estilos es necesario importarlos con import
- * React funciona ligeramente diferente y para los atributos de clases no se utiliza class sino className
- * Es posible utilizar Bootstrap con React, sólo debe ser instalado con npm install bootstrap y debe ser importado en el index.js
- * Existen estilos que son usados de manera global o en varios componentes, así que deben ser importados en el index.js
+ * Para no tener que estar escribiendo this.props en todos los lugares donde queremos mostrarlos en el componente, se recomienda hacer uso de destructuring
+ * 
+ * const {
+	firstName,
+	lastName,
+	avatarUrl,
+	jobTitle,
+	twitter
+    } = this.props;
+ * y ahora solo {firstName} o {twitter}  
  */
 class Badge extends React.Component {
-  // Los nombres de atributos HTML que entren en conficto con palabras resercadas de JS, deben nombrarse según la documentacion de React
-  // class -----  className
+  /**
+   * Los props salen de una variable de la clase que se llama this.props y los valores son asignados directamente en el ReactDOM.render().
+   */
   render() {
     return (
       <div className="Badge">
@@ -25,16 +31,17 @@ class Badge extends React.Component {
         <div className="Badge__section-name">
           <img
             className="Badge__avatar"
-            src="https://www.gravatar.com/avatar/0fcf77b7bc594393ac42cebfe45e7179"
+            src={this.props.avatarUrl}
             alt="Avatar"
           />
           <h1>
-            Alejandro <br /> González
+            {/**En esta sección estamos accediendo a la información enviada a través de los props de este componente */}
+            {this.props.firstName} <br /> {this.props.lastName}
           </h1>
         </div>
         <div className="Badge__section-info">
-          <h3>Frontend Engineer</h3>
-          <div>@jsconestilo</div>
+          <h3>{this.props.jobTitle}</h3>
+          <div>@{this.props.twitter}</div>
         </div>
         <div className="Badge__footer">#platziconf</div>
       </div>

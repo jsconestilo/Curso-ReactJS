@@ -14,14 +14,28 @@ serviceWorker.unregister();*/
 // Librerías necesarias para aplicaciones React
 import React from "react";
 import ReactDom from "react-dom";
-// Importar librería de Bootstrap para aplicar estilos globales en nuestra app. Para ello es necesario instalarla mediante npm
-// Los módulos de npm se acceden solo mencionando el nombre del mismo, sin /, ./ etc
+
 import "bootstrap/dist/css/bootstrap.css";
-// Si tenemos estilos CSS globales. Es necesario importarlos desde el index de la App
 import "./global.css";
-// Requerir el componente
+
 import Badge from "./components/Badge";
 
 const container = document.getElementById("root");
 
-ReactDom.render(<Badge />, container);
+/**
+ * EXPLICACIÓN 1:
+ *
+ * Los props que es la forma corta de properties,
+ * son argumentos de una función y en este caso serán los atributos de nuestro componente como class, src, etc.
+ * Permiten enviar información a nuestros componentes para que se comporten de manera diferente (muestren info diferente)
+ */
+ReactDom.render(
+  <Badge
+    firstName="Alexito"
+    lastName="González"
+    jobTitle="Front End Web Engineer"
+    twitter="jsconestilo"
+    avatarUrl="https://www.gravatar.com/avatar/0fcf77b7bc594393ac42cebfe45e7179"
+  />,
+  container
+);

@@ -18,18 +18,22 @@ import ReactDom from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./global.css";
 
-import BadgeNew from "./pages/BadgeNew";
 /**
- * En esta ocasión, la aplicación mostrará como página principal la que contiene el componente de listado de badges
+ * EXPLICACIÓN 1:
+ * Las aplicaciones que se trabajan en React son llamadas single page apps.
+ * Esto es posible gracias a React Router que es una librería Open Source
+ *
+ * En esta ocasión importo un componente que contiene declarada toda la lógica del router.
+ * Para que nuestra App se convierta en automático en un SPA
  */
-import Badges from "./pages/Badges";
+
+import App from "./components/App";
 
 const container = document.getElementById("root");
 
 /**
- * EXPLICACIÓN 1:
+ * EXPLICACIÓN 2:
  * En las SPA solo renderizamos el componente principal. y sobre el se colocaran los componentes secundarios
  * u otras páginas de componentes mediante el sistema de ruteo
- *
  */
-ReactDom.render(<Badges />, container);
+ReactDom.render(<App />, container);

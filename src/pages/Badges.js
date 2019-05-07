@@ -1,9 +1,10 @@
 import React from "react";
 /**
- * Este componente de página tiene sus propies estilos CSS
- * Muesta una imagen como banner principal
- * Y contiene dos componentes -- La barra de navegación y un BadgeList
+ * Este componente contiene enlaces para navegar entre rutas de la aplicación. (Single Page Application)
+ * Para ello es necesario importar el componente de terceros Lnk perteneciente a la librería de react-router-dom
  */
+import { Link } from "react-router-dom";
+
 import "./styles/Badges.css";
 import confLogo from "../images/badge-header.svg";
 import Navbar from "../components/Navbar";
@@ -62,9 +63,14 @@ class Badges extends React.Component {
 
         <div className="Badges__container">
           <div className="Badges__buttons">
-            <a href="/badges/new" className="btn btn-primary">
+            {/** Para navegar entre rutas de la aplicación es necesario hacer uso del componente Link
+            el cual pertenece a la librería de react-router-dom
+            Internamente captura el click y previene que se recarge la página. Es necesario pasarle el prop to con la ruta destino 
+            
+            Importante: hacer uso de anclas normales <a>, haría que se recargue la página */}
+            <Link to="/badges/new" className="btn btn-primary">
               New Badge
-            </a>
+            </Link>
           </div>
           <div className="BadgesList">
             <div className="Badges__container">

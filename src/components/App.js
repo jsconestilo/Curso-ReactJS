@@ -16,24 +16,43 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
  */
 import Badges from "../pages/Badges";
 import BadgeNew from "../pages/BadgeNew";
+import NotFound from "../pages/NotFound";
+import Home from "../pages/Home";
 /**
- * EXPLICACION 3:
- *
+ * El layout contiene todos los componentes que son iguales en la mayoria de las páginas.
+ * En este caso se repite el Navbar, asi como el mecanismo de ruteo
+ */
+import Layout from "./Layout";
+/**
  * Este es un componete de React.
  * La diferencia es que este componente no va a contener métodos definidos, y sobre todo, internamente no se va a estar utilizando el estado.
  * Se les conoce como componentes stateless (componentes sin estado)
+ *
+ * El componente App es la interfaz general de la aplicación
+ * Por tanto incluye el sistema de ruteo, y el layout general de la aplicacion
  */
 function App() {
   return (
     // BrowserRouter: es un componente que debe estar siempre lo más arriba de la aplicación. Todo lo que esté adentro funcionará como una SPA.
     <BrowserRouter>
-      {/** Switch: Dentro de Switch solamente van elementos de Route. Se asegura que solamente un Route se renderize. */}
-      <Switch>
-        {/** Route: Cuando hay un match con el "path", se hace render del "component". 
-        El component declarado va a recibir tres props (de forma automática): match, history, location. */}
-        <Route path="/badges" exact component={Badges} />
-        <Route path="/badges/new/" exact component={BadgeNew} />
-      </Switch>
+      {/** La aplicación contiene elementos que se repiten en todos los componentes de página.
+      Por tanto, se invoca el Layout y se le pasa como hijos (SLOTS en VueJS) el sistema de rutas */}
+      <Layout>
+        {/** Switch: Dentro de Switch solamente van elementos de Route. Se asegura que solamente un Route se renderize. */}
+        <Switch>
+          {/** Route: Cuando hay un match con el "path", se hace render del "component". 
+          El component declarado va a recibir tres props (de forma automática): match, history, location. 
+          
+          El prop exact, le indica a React Router que la coincidencia debe ser exacta
+          
+          Home es el componente por defecto a mostrar cuando la app se inicialice a nivel raiz */}
+          <Route path="/" exact component={Home} />
+          <Route path="/badges" exact component={Badges} />
+          <Route path="/badges/new/" exact component={BadgeNew} />
+          {/** Se define una ruta de opcion por defecto, si las anteriores no matchearon */}
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
     </BrowserRouter>
   );
 }

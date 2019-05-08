@@ -5,7 +5,6 @@ import React, { Component } from "react";
 import "./styles/BadgeNew.css";
 import logo from "../images/badge-header.svg";
 // Este componente de página requiere mostrar otros componentes como parte de su contenido interno. POr tanto los importamos
-import Navbar from "../components/Navbar";
 import Badge from "../components/Badge";
 import BadgeForm from "../components/BadgeForm";
 
@@ -62,8 +61,7 @@ class BadgeNew extends Component {
   };
   render() {
     return (
-      <div>
-        <Navbar />
+      <React.Fragment>
         <div className="BadgeNew__hero">
           <img className="img-fluid" src={logo} alt="Logo" />
         </div>
@@ -97,7 +95,7 @@ class BadgeNew extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

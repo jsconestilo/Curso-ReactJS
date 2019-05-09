@@ -4,114 +4,82 @@ import { Link } from "react-router-dom";
 import "./styles/Badges.css";
 import confLogo from "../images/badge-header.svg";
 import BadgesList from "../components/BadgesList";
+// Este es un archivo que funge como un wrapper para hacer llamadas a una API
+/**
+ * Internamente hace llamadas a un servidor JSON que se encuentra declarado dentro de la carpeta server
+ * Para poder funcionar requiere dependencias de desaarrollo, las cuales han sido instaladas mediante NPM
+ * y para poderlo arrancar, se realizó modificaciones en el achivo package.json
+ * "start": "npm-run-all -p client server"
+ * "client": "react-scripts start",
+ *  "server": "json-server --port 3001 --watch server/db.json",
+ *  "seed": "node server/seed.js",
+ */
+import api from "../api";
 
 /**
- * El ciclo de vida de los componentes en React
+ * Peticiones a una API
  *
- * Cuando React renderiza los componentes decimos que entran en escena (MONTAJE),
- * cuando su estado cambia o recibe unos props diferentes se actualizan (ACTUALIZACION) y
- * cuando cambiamos de página se dice que se desmontan (DESMONTAJE).
+ * El hacer llamadas a una API presenta 3 estados.
+ * Loading (cuando se hace la peticion)
+ * Data (cuando la promesa del llamado a la API se resuelve y retorna los datos)
+ * Error (cuando la promesa es rechazada)
  *
- * Montaje:
- * Representa el momento donde se inserta el código del componente en el DOM.
- * Se llaman tres métodos: constructor, render, componentDidMount.
- *
- * Actualización:
- * Ocurre cuando los props o el estado del componente cambian.
- * Se llaman dos métodos: render, componentDidUpdate.
- *
- * Desmontaje:
- * Nos da la oportunidad de hacer limpieza de nuestro componente.
- * Se llama un método: componentWillUnmount.
+ * Cuando la promesa se resuelve, se presentan dos escenaarios
+ * Hay datos en la respuesta (deben mostrarse uno a uno)
+ * No hay datos (por experiencia de usuario se debe de mostrar un boton para invitarlo a ser el primero en publicar algo)
  */
 
 class Badges extends React.Component {
   /**
-   * Se declara el estado de este componente vacio.
-   * Cuando el componente se termine de cargar se llenará el estado con la data correspondiente
+   * Cuando este componente entra en escenda, sus datos se encuentran indefinidos (puesto que se traen desde un API)
+   * el loading es verdadero, porque al llamar la API se supone que esos datos se estan cargando
+   * y por tanto no hay error
    */
   state = {
-    data: []
+    data: undefined,
+    loading: true,
+    error: null
   };
 
-  constructor(props) {
-    // El constructor es el primer metodo a llamar cuando un componente se monta
-    super(props);
-    console.log("1. constructor()");
-  }
   componentDidMount() {
-    // El método componentDidMount es el tercer y ultimo método a llamar cuando un componente se Monta
-    // En este punto el componente ya está dentro de escena
-    console.log("3. componentDidMount()");
-    // Simulamos una promesa... El estado de la app cambiará dentro de 3 segundos (se establecerpa data en el estado)
-    // Esto generará que el componente se actualice
-    this.timeoutId = setTimeout(() => {
-      this.setState({
-        data: [
-          {
-            id: "2de30c42-9deb-40fc-a41f-05e62b5939a7",
-            irstName: "Freda",
-            lastName: "Grady",
-            email: "Leann_Berge@gmail.com",
-            jobTitle: "Legacy Brand Director",
-            twitter: "FredaGrady22221-7573",
-            avatarUrl:
-              "https://www.gravatar.com/avatar/f63a9c45aca0e7e7de0782a6b1dff40b?d=identicon"
-          },
-          {
-            id: "d00d3614-101a-44ca-b6c2-0be075aeed3d",
-            firstName: "Major",
-            lastName: "Rodriguez",
-            email: "Ilene66@hotmail.com",
-            jobTitle: "Human Research Architect",
-            twitter: "ajorRodriguez61545",
-            avatarUrl:
-              "https://www.gravatar.com/avatar/d57a8be8cb9219609905da25d5f3e50a?d=identicon"
-          },
-          {
-            id: "63c03386-33a2-4512-9ac1-354ad7bec5e9",
-            firstName: "Daphney",
-            lastName: "Torphy",
-            email: "Ron61@hotmail.com",
-            jobTitle: "National Markets Officer",
-            twitter: "DaphneyTorphy96105",
-            avatarUrl:
-              "https://www.gravatar.com/avatar/e74e87d40e55b9ff9791c78892e55cb7?d=identicon"
-          }
-        ]
-      });
-    }, 3000);
-  }
-  componentDidUpdate(prevProps, prevState) {
-    // Este método es el último en llamar cuando un componente se actualiza
-    // Es un excelente lugar para saber que estado y props nuevas han llegado al componente para
-    // Proceder a compararlo con los datos anteriores.
-    console.log("5. componentDidUpdate()");
-    console.info({
-      prevProps,
-      prevState
-    });
-    console.info({
-      propsNew: this.props,
-      stateNew: this.state
-    });
-  }
-  componentWillUnmount() {
     /**
-     * Este método se invoca cuando un componente se desmonta (sale de escena)
-     * Es un excelente lugar para recolectar basura y no perder memoria
-     * Ejem.
-     * La simulación de promesa se resolverá en 3 segundos.
-     * Si antes de ello el usuario cambia de ruta, el componente se desmonta
-     * y cuando la promesa se resuelva, esa info quedará al vacio y perderemos memoria
+     * El mejor lugar para hacer una llamada a la API es en este método, el cual se activa
+     * cuando el componente esta completamente cargado y listo para recibir los datos
      */
-    console.log("6. componentWillUnmount()");
-    clearTimeout(this.timeoutId);
+    this.fetchData();
   }
+
+  fetchData = async () => {
+    // Cuando se hace petición a la API (en un futuro) por lógica comienza la carga y cualquier error anterior desaparece
+    this.setState({
+      loading: true,
+      error: null
+    });
+    // Intentamos hacer la petición a la API
+    try {
+      /**
+       * La API devuelve una promesa. esta situación es controlada mediante async/await
+       * En caso de exito establecemos la data en el state
+       * En caso de error (promesa rechazada) se captura y se establece el state de la aplicación con dicha información
+       */
+      const data = await api.badges.list();
+      this.setState({ loading: false, data: data });
+    } catch (error) {
+      // Una promesa rechazada emite un error, aqui se captura y se establece el estado con esa información
+      this.setState({ loading: false, error: error });
+    }
+  };
+
   render() {
-    // El método render es el segundo método en llamarse cuando un componente se monta
-    // Pero, es el primer metodo en llamarse cuando el componente se actualia
-    console.log("2/4. render()");
+    // Si el loading es verdadero, la data aun no llega, por tanto se retorna un mensaje con dicho contexto
+    if (this.state.loading === true) {
+      return "Loading...";
+    }
+    // Si hay error, retornamos el mensaje con el error sucedido
+    if (this.state.error) {
+      return `Error: ${this.state.error.message}`;
+    }
+    // Si el loading es falso y no hay error, entonces procedemos a renerizar los elementos del componente
     return (
       <React.Fragment>
         <div className="Badges">

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import "./styles/BadgesList.css";
 /**
  * Este componente tiene una responsabilidad única.
@@ -8,7 +8,21 @@ import "./styles/BadgesList.css";
  * Misma que le es pasada a través del props badges
  */
 class BadgesList extends React.Component {
+  /**
+   * Antes de renderizar el contenido principal del componente, debemos verificar si hay datos en la respuesta de la API
+   * En caso contrario, retornamos JSX alternativo para invitar al usuario a ser el primero en crear un badge
+   */
   render() {
+    if (this.props.badges.length === 0) {
+      return (
+        <div>
+          <h3>No badges were found</h3>
+          <Link to="/badges/new" className="btn btn-primary">
+            Create new Badge
+          </Link>
+        </div>
+      );
+    }
     return (
       <ul className="list-unstyled">
         {/** El valor recibido a través del prop badges, es un arreglo de objetos.

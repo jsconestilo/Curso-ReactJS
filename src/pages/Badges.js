@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import "./styles/Badges.css";
 import confLogo from "../images/badge-header.svg";
 import BadgesList from "../components/BadgesList";
+// Estos son componentes que mejoran la experiencia de usuario al momento de consultar una API
+import PageLoading from "../components/PageLoading";
+import PageError from "../components/PageError";
+
 // Este es un archivo que funge como un wrapper para hacer llamadas a una API
 /**
  * Internamente hace llamadas a un servidor JSON que se encuentra declarado dentro de la carpeta server
@@ -71,13 +75,20 @@ class Badges extends React.Component {
   };
 
   render() {
-    // Si el loading es verdadero, la data aun no llega, por tanto se retorna un mensaje con dicho contexto
+    /**
+     * Si el loading es verdadero, la data aun no llega al componente,
+     * por tanto se retorna un componente cuya misión es mostrar un loader animado
+     * */
     if (this.state.loading === true) {
-      return "Loading...";
+      return <PageLoading />;
     }
-    // Si hay error, retornamos el mensaje con el error sucedido
+    /**
+     * Si hay error en la petición, se retorna un componente
+     * el cual espera en su prop error el error acontecido tras consultar la API
+     * Ese error se recupera del estado del componente
+     */
     if (this.state.error) {
-      return `Error: ${this.state.error.message}`;
+      return <PageError error={this.state.error} />;
     }
     // Si el loading es falso y no hay error, entonces procedemos a renerizar los elementos del componente
     return (

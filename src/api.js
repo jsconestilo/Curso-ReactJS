@@ -25,8 +25,10 @@ const api = {
   badges: {
     list() {
       //return [];
-      throw new Error("not found");
-      //return callApi("/badges");
+      /*throw new Error(
+        "Lo sentimos, no encontramos datos que se correspondan con la petición"
+      );*/
+      return callApi("/badges");
     },
     create(badge) {
       return callApi(`/badges`, {

@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDom from "react-dom";
 import { Link } from "react-router-dom";
 
 import "./styles/BadgeDetails.css";
@@ -58,6 +59,16 @@ function BadgeDetails(props) {
               </div>
               <div>
                 <button className="btn btn-danger mt-2">Delete</button>
+                {/** Aqui vamos a representar el modal para confirmar la eliminación. Pero
+                a nivel semantico no es lo más correcto, quizá por problemas de una clase de estilo, etc,
+                generalmente los problemas se presentan por z-index u overflow
+                
+                Por tanto empleamos los PORTALES de React.
+                para indicarle que elemento necesitamos renderizar y donde (quizá fuera el ambito de la app) */}
+                {ReactDom.createPortal(
+                  <h3>Hola yo soy el contenido a renderizar en otra parte</h3>,
+                  document.getElementById("modal")
+                )}
               </div>
             </div>
           </div>

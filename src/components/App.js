@@ -16,6 +16,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
  */
 import Badges from "../pages/Badges";
 import BadgeNew from "../pages/BadgeNew";
+import BadgeEdit from "../pages/BadgeEdit";
 import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
 /**
@@ -49,6 +50,10 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/badges" exact component={Badges} />
           <Route path="/badges/new/" exact component={BadgeNew} />
+          {/** Esta ruta acepta un parametro de consulta identificado como :badgeId
+          mismo que puede ser recuperado desde el componente a través del prop
+          match.params.badgeId */}
+          <Route path="/badges/:badgeId/edit" exact component={BadgeEdit} />
           {/** Se define una ruta de opcion por defecto, si las anteriores no matchearon */}
           <Route component={NotFound} />
         </Switch>

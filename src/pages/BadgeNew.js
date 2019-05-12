@@ -125,6 +125,8 @@ class BadgeNew extends Component {
               />
             </div>
             <div className="col-6">
+              {/** Ahora el componente es el encargado de mostrar ek titulo del formulario */}
+              <h1>New Attendant</h1>
               {/** Ahora mediante props, le compartimos el state al componente del formulario. 
               Para que internamente haga uso de ella.
               En este caso controle sus elementos input con la data proporcionada, en su atributo value

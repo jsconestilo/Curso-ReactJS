@@ -1,19 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./styles/BadgesList.css";
-// Este componente permite mostrar el avatar de un usuario con base en el email proporcionado
-import Gravatar from "./Gravatar";
-/**
- * Este componente tiene una responsabilidad única.
- * El mostrar a manera de listado, la información de cada uno de los participantes registrados
- * en la data del componente padre (pagina)
- * Misma que le es pasada a través del props badges
- */
+// Cada elemento de Badge en la lista ahora es un componente
+import BadgeListItem from "./BadgeListItem";
+
 class BadgesList extends React.Component {
-  /**
-   * Antes de renderizar el contenido principal del componente, debemos verificar si hay datos en la respuesta de la API
-   * En caso contrario, retornamos JSX alternativo para invitar al usuario a ser el primero en crear un badge
-   */
   render() {
     if (this.props.badges.length === 0) {
       return (
@@ -27,29 +17,23 @@ class BadgesList extends React.Component {
     }
     return (
       <ul className="list-unstyled">
-        {/** El valor recibido a través del prop badges, es un arreglo de objetos.
-        En javascript se tiene el método map( ), el cual permite acceder a cada uno de los elementos del arreglo
-        para procesarlos (maperlos) y al finalizar retornarlos */}
         {this.props.badges.map(badge => {
           return (
-            // Cada hijo de una lista, está obligado a recibir un identificador único.
-            // Para que react le de un seguimiento, y si en un determinado momento cambia, proceder a renderizarlo
-            <li key={badge.id} className="BadgesListItem">
-              {/** Cada usuario posiblemente tiene un avatar registrado, para ello el componente recibe el email
-              asi como la clase CSS para representar sus elmementos internos */}
-              <Gravatar
-                email={badge.email}
-                className="BadgesListItem__avatar"
-              />
-              <div>
-                <h5>
-                  {badge.firstName} {badge.lastName}
-                </h5>
-                <a href={"https://twitter.com/" + badge.twitter}>
-                  @{badge.twitter}
-                </a>
-                <p>{badge.jobTitle}</p>
-              </div>
+            <li key={badge.id}>
+              {/** Cada elemento de badge es un enlace de react que nos llevaría
+              al componente de edicion, con los respectivos datos de este badge
+              
+              Por ello el destino es una ruta que contiene un valor dinámico, el cual es tomado
+              como valor del parametro de consulta badgeId declarado en la ruta*/}
+              <Link
+                to={`/badges/${badge.id}/edit`}
+                className="text-reset text-decoration-none"
+              >
+                {/** Refactorización del codigo de este componente. El contenido de cada item
+              se movio a un nuevo componente para que muestre dicha informacion.
+              Se le compoarte información del badge en cuestion */}
+                <BadgeListItem badge={badge} />
+              </Link>
             </li>
           );
         })}

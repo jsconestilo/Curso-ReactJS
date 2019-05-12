@@ -15,7 +15,8 @@ class BadgeForm extends Component {
   render() {
     return (
       <div>
-        <h1>New Attendant</h1>
+        {/** Retiramos el titular de este formulario, debido a que es reutilizado
+        para crear y actualizar badges. */}
         <form onSubmit={this.props.onSubmit}>
           <div className="form-group">
             <label>First Name</label>
@@ -42,7 +43,7 @@ class BadgeForm extends Component {
               type="text"
               name="lastName"
               className="form-control"
-              value={this.props.formValues.astName}
+              value={this.props.formValues.lastName}
             />
           </div>
           <div className="form-group">

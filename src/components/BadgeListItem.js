@@ -17,9 +17,8 @@ function BadgeListItem(props) {
         <h5>
           {props.badge.firstName} {props.badge.lastName}
         </h5>
-        <a href={"https://twitter.com/" + props.badge.twitter}>
-          @{props.badge.twitter}
-        </a>
+        {/** Retiré el enlace debido a que causa problemas el tener un enlace dentro de otro enlace */}
+        <p>@{props.badge.twitter}</p>
         <p>{props.badge.jobTitle}</p>
       </div>
     </div>

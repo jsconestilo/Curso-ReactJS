@@ -21,12 +21,12 @@ class BadgesList extends React.Component {
           return (
             <li key={badge.id}>
               {/** Cada elemento de badge es un enlace de react que nos llevaría
-              al componente de edicion, con los respectivos datos de este badge
+              al componente de detalles generales de dicho badge seleccionado
               
               Por ello el destino es una ruta que contiene un valor dinámico, el cual es tomado
               como valor del parametro de consulta badgeId declarado en la ruta*/}
               <Link
-                to={`/badges/${badge.id}/edit`}
+                to={`/badges/${badge.id}`}
                 className="text-reset text-decoration-none"
               >
                 {/** Refactorización del codigo de este componente. El contenido de cada item

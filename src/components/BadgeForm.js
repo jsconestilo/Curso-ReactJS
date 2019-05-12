@@ -12,20 +12,11 @@ import React, { Component } from "react";
  *
  */
 class BadgeForm extends Component {
-  // Función controladora de evento de tipo click para el boton de formulario
-  handleClick = e => {
-    // Forma para prevenir el comportamiento por defecto del boton dentro del formulario
-    e.preventDefault();
-    console.log("El formulario fué enviado");
-    // Recuperamos el estado actual del componente (almacenado en el state)
-    // Por ello es importante que estas funciones sean de tipi arrow, de lo contrario sería necesario bindear this
-    console.log(this.state);
-  };
   render() {
     return (
       <div>
         <h1>New Attendant</h1>
-        <form>
+        <form onSubmit={this.props.onSubmit}>
           <div className="form-group">
             <label>First Name</label>
             {/** Como el state se encuentra en un nivel superior, ahora este componente la
@@ -84,9 +75,17 @@ class BadgeForm extends Component {
               value={this.props.formValues.twitter}
             />
           </div>
-          <button onClick={this.handleClick} className="btn btn-primary">
-            Save
-          </button>
+          <button className="btn btn-primary">Save</button>
+          {/** 
+          Condicional en JSX  
+          Si props.error es true entonces (&&)
+          muestra etiquetas p con el contenido del error
+
+          Este mismo mecanismo nos puede servir para validar que ciertos campos cumplan con el tipo de nfo
+          */}
+          {this.props.error && (
+            <p className="text-danger">{this.props.error.message}</p>
+          )}
         </form>
       </div>
     );

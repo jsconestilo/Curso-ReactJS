@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./styles/BadgesList.css";
+// Este componente permite mostrar el avatar de un usuario con base en el email proporcionado
+import Gravatar from "./Gravatar";
 /**
  * Este componente tiene una responsabilidad única.
  * El mostrar a manera de listado, la información de cada uno de los participantes registrados
@@ -33,9 +35,10 @@ class BadgesList extends React.Component {
             // Cada hijo de una lista, está obligado a recibir un identificador único.
             // Para que react le de un seguimiento, y si en un determinado momento cambia, proceder a renderizarlo
             <li key={badge.id} className="BadgesListItem">
-              <img
-                src={badge.avatarUrl}
-                alt="logoAvatar"
+              {/** Cada usuario posiblemente tiene un avatar registrado, para ello el componente recibe el email
+              asi como la clase CSS para representar sus elmementos internos */}
+              <Gravatar
+                email={badge.email}
                 className="BadgesListItem__avatar"
               />
               <div>

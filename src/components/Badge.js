@@ -3,6 +3,8 @@ import React from "react";
 import "./styles/Badge.css";
 
 import confLogo from "../images/badge-header.svg";
+// Importar el componente que se encarga de mostrar el avatar del usuario con base en el email proporcionado
+import Gravatar from "./Gravatar";
 
 class Badge extends React.Component {
   /**
@@ -15,11 +17,8 @@ class Badge extends React.Component {
           <img src={confLogo} alt="Logo de la conferencia" />
         </div>
         <div className="Badge__section-name">
-          <img
-            className="Badge__avatar"
-            src={this.props.avatarUrl}
-            alt="Avatar"
-          />
+          {/** Este componente acerpta 2 props, uno de ellos es la clase CSS aplicada a sus elementos internos */}
+          <Gravatar className="Badge__avatar" email={this.props.email} />
           <h1>
             {/**En esta sección estamos accediendo a la información enviada a través de los props de este componente */}
             {this.props.firstName} <br /> {this.props.lastName}

@@ -440,6 +440,38 @@
       "jobTitle": "Lawyer",
       "twitter": "ckaufmanpr",
       "id": "npaYZKI"
+    },
+    {
+      "firstName": "Alejandro",
+      "lastName": "González",
+      "email": "alejandro.gonzalez.reyes@outlook.com",
+      "jobTitle": "Docente",
+      "twitter": "alejandogonzalez",
+      "id": "ENjyt9c"
+    },
+    {
+      "firstName": "Alejandro",
+      "lastName": "González Reyes",
+      "email": "jsconestilo@gmail.com",
+      "jobTitle": "Desarrollador Web",
+      "twitter": "jsconestilo",
+      "id": "_pi4TWV"
+    },
+    {
+      "firstName": "Jaime Antonio",
+      "lastName": "Duran Hernández",
+      "email": "phpconestilo@gmail.com",
+      "jobTitle": "Candidato a la República ",
+      "twitter": "jaimeantonio",
+      "id": "gluxgrO"
+    },
+    {
+      "firstName": "Miguel Angel",
+      "lastName": "González Reyes",
+      "email": "miguel.gonzalez@gmail.com",
+      "jobTitle": "Estudiante",
+      "twitter": "miguel",
+      "id": "J2jkTEJ"
     }
   ]
 }

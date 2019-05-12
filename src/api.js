@@ -31,6 +31,7 @@ const api = {
       return callApi("/badges");
     },
     create(badge) {
+      //throw new Error("Error 503");
       return callApi(`/badges`, {
         method: "POST",
         body: JSON.stringify(badge)

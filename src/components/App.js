@@ -17,7 +17,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Badges from "../pages/Badges";
 import BadgeNew from "../pages/BadgeNew";
 import BadgeEdit from "../pages/BadgeEdit";
-import BadgeDetails from "../pages/BadgeDetails";
+import BadgeDetailsContainer from "../pages/BadgeDetailsContainer";
 import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
 /**
@@ -51,8 +51,16 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/badges" exact component={Badges} />
           <Route path="/badges/new/" exact component={BadgeNew} />
-          {/** Esta ruta es para mostrar los detalles del Badge seleccionado */}
-          <Route path="/badges/:badgeId" exact component={BadgeDetails} />
+          {/** Esta ruta es para mostrar los detalles del Badge seleccionado
+          Por buenas prácticas, la tarea se divide en dos componentes
+          
+          BadgeDetailsContainer: es responsable de la lógica
+          BadgeDetails: es el responsable de la presentación de los datos */}
+          <Route
+            path="/badges/:badgeId"
+            exact
+            component={BadgeDetailsContainer}
+          />
           {/** Esta ruta acepta un parametro de consulta identificado como :badgeId
           mismo que puede ser recuperado desde el componente a través del prop
           match.params.badgeId */}

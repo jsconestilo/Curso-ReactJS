@@ -1,11 +1,15 @@
 import React from "react";
-import ReactDom from "react-dom";
 import { Link } from "react-router-dom";
 
 import "./styles/BadgeDetails.css";
 import confLogo from "../images/platziconf-logo.svg";
 
 import Badge from "../components/Badge";
+/**
+ * Este es un componente mas especializado que hace uso del Modal. es decir
+ * el Modal es un componente generico, y este le hace una composición para adaptarlo mejor a la necesidad (decoracion)
+ */
+import DeleteBadgeModal from "../components/DeleteBadgeModal";
 
 /**
  * Este es un componente funcional (no tiene acceso al estado)
@@ -58,17 +62,28 @@ function BadgeDetails(props) {
                 </Link>
               </div>
               <div>
-                <button className="btn btn-danger mt-2">Delete</button>
-                {/** Aqui vamos a representar el modal para confirmar la eliminación. Pero
-                a nivel semantico no es lo más correcto, quizá por problemas de una clase de estilo, etc,
-                generalmente los problemas se presentan por z-index u overflow
+                {/** Al presionar el boton se invoca el prop de abrir el modal */}
+                <button
+                  onClick={props.onOpenModal}
+                  className="btn btn-danger mt-2"
+                >
+                  Delete
+                </button>
+                {/**
+                Es en este punto donde mando a renderizar el modal si se presiona el boton de eliminar. Sin embargo, el componente
+                es una composicion del Modal principal (generico), el cual mediante los PORTALES de React, se renderiza fuera
+                del contexto de la app. 
+
+                Por tanto le comparto cierta información, tal como si debe estar abierto, y props de tipo evento para cerrarse
+                asi como para notificar de que se necesita eliminar el bardge seleccionado
                 
-                Por tanto empleamos los PORTALES de React.
-                para indicarle que elemento necesitamos renderizar y donde (quizá fuera el ambito de la app) */}
-                {ReactDom.createPortal(
-                  <h3>Hola yo soy el contenido a renderizar en otra parte</h3>,
-                  document.getElementById("modal")
-                )}
+                Esta informacion la necesita para sus botones de cerrar, cancelar, eliminar. Así como para ser visible en pantalla
+                 */}
+                <DeleteBadgeModal
+                  isOpen={props.modalIsOpen}
+                  onClose={props.onCloseModal}
+                  onDeleteBadge={props.onDeleteBadge}
+                />
               </div>
             </div>
           </div>
